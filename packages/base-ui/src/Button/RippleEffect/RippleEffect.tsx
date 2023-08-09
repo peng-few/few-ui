@@ -3,7 +3,9 @@ import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 import { Ripple } from './Ripple';
+import { ContainerRect, RippleAction } from './RippleEffect.type';
 
+const TIMEOUT = 550;
 const rippleStartFrame = keyframes`
   from {
     opacity: 0.65;
@@ -34,9 +36,21 @@ const Container = styled.span({
   overflow: 'hidden',
 });
 
-export interface RippleAction {
-  start(event: React.SyntheticEvent): void;
-  stop(): void;
+function getRippleRect(
+  target: HTMLElement | null,
+  { pageX, pageY }: React.MouseEvent,
+) {
+  const rect: ContainerRect = target
+    ? target.getBoundingClientRect()
+    : { top: 0, left: 0, width: 0, height: 0 };
+
+  const size = Math.max(rect.width, rect.height) * 2;
+  const scrollTop =
+    document.documentElement.scrollTop || document.body.scrollTop || 0;
+  const top = pageY - rect.top - scrollTop - size / 2;
+  const left = pageX - rect.left - document.body.scrollTop - size / 2;
+
+  return { size, top, left };
 }
 
 export const RippleEffect = React.forwardRef<RippleAction>((_, ref) => {
@@ -45,15 +59,7 @@ export const RippleEffect = React.forwardRef<RippleAction>((_, ref) => {
   const [id, setId] = useState(0);
 
   const start = (event: React.MouseEvent) => {
-    const rect = container.current
-      ? container.current.getBoundingClientRect()
-      : { top: 0, left: 0, width: 0, height: 0 };
-
-    const size = Math.max(rect.width, rect.height) * 2;
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop || 0;
-    const top = event.pageY - rect.top - scrollTop - size / 2;
-    const left = event.pageX - rect.left - document.body.scrollTop - size / 2;
+    const { size, top, left } = getRippleRect(container.current, event);
 
     setRipples((oldRipples) => {
       return [
@@ -64,7 +70,7 @@ export const RippleEffect = React.forwardRef<RippleAction>((_, ref) => {
           left={left}
           size={size}
           key={id}
-          timeout={550}
+          timeout={TIMEOUT}
         />,
       ];
     });
@@ -82,7 +88,7 @@ export const RippleEffect = React.forwardRef<RippleAction>((_, ref) => {
 
   return (
     <Container ref={container}>
-      <TransitionGroup timeout={550} component={null} exit>
+      <TransitionGroup timeout={TIMEOUT} component={null} exit>
         {ripples}
       </TransitionGroup>
     </Container>

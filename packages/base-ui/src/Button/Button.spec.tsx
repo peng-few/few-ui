@@ -1,8 +1,17 @@
-import { render, screen } from '../../test-util';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+  findByRole,
+} from '../../test-util';
 import { Button } from './Button';
+
 function Link(props: { to: string }) {
   return <a href={props.to}>link</a>;
 }
+
 describe('Button', () => {
   it('should render button', () => {
     render(<Button />);
@@ -50,5 +59,28 @@ describe('Button', () => {
     render(<Button href="https://google.com" target="_blank" />);
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('rel', ' noopener noreferer');
+  });
+
+  it('can add event handler', () => {
+    const onClick = jest.fn();
+
+    render(<Button onClick={onClick}>按我</Button>);
+    fireEvent.click(screen.getByText('按我'));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('has ripple when mouse down, and be removed after mouse up', async () => {
+    render(<Button>按我</Button>);
+    const button = screen.getByText('按我');
+    const rippleContainer = button.lastChild as HTMLElement;
+    expect(rippleContainer?.tagName).toBe('SPAN');
+
+    fireEvent.mouseDown(button);
+    expect(rippleContainer?.childNodes.length).toEqual(1);
+
+    fireEvent.mouseUp(button);
+    await waitFor(() => {
+      expect(rippleContainer?.childNodes.length).toEqual(0);
+    });
   });
 });
