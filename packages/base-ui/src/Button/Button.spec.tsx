@@ -1,11 +1,4 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-  findByRole,
-} from '../../test-util';
+import { render, screen, fireEvent, waitFor } from '../../test-util';
 import { Button } from './Button';
 
 function Link(props: { to: string }) {

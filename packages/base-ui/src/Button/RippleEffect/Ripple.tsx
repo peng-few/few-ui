@@ -18,7 +18,7 @@ const RippleInner = styled.span({
   backgroundColor: 'currentColor',
   borderRadius: '100%',
   '&.ripple-child--leaving': {
-    animation: `${rippleEndFrame} 0.5s ease forwards`,
+    animation: `${rippleEndFrame} 0.5s ease-in forwards`,
   },
 });
 

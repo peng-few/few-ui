@@ -75,3 +75,60 @@ export const Filled: Story = {
     },
   },
 };
+
+export const Outlined: Story = {
+  name: 'outlined Button',
+  args: {
+    variant: 'outlined',
+    color: 'primary',
+    children: 'Button',
+  },
+  argTypes: {
+    as: {
+      options: ['a', 'button', 'div'],
+      description: 'The value of the slider',
+    },
+    variant: {
+      control: false,
+      description: 'The value of the slider',
+    },
+  },
+};
+
+export const Text: Story = {
+  name: 'text Button',
+  args: {
+    variant: 'text',
+    color: 'primary',
+    children: 'Button',
+  },
+  argTypes: {
+    as: {
+      options: ['a', 'button', 'div'],
+      description: 'The value of the slider',
+    },
+    variant: {
+      control: false,
+      description: 'The value of the slider',
+    },
+  },
+};
+
+export const Default: Story = {
+  name: 'default Button',
+  args: {
+    variant: 'default',
+    color: 'primary',
+    children: 'Button',
+  },
+  argTypes: {
+    as: {
+      options: ['a', 'button', 'div'],
+      description: 'The value of the slider',
+    },
+    variant: {
+      control: false,
+      description: 'The value of the slider',
+    },
+  },
+};
