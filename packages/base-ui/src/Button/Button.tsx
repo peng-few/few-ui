@@ -12,8 +12,8 @@ const StyleButton = styled('button')<BaseProps>(
     variant = Variant.Default,
     rounded,
     size = 'md',
+    theme,
   }) => {
-    const theme = useTheme();
     const variantStyle = useMemo(
       () => getVariantStyle(theme, color, variant),
       [theme, color, variant],
