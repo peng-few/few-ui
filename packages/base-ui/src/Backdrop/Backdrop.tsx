@@ -11,24 +11,22 @@ const StyledBackdrop = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   color: 'white',
-  background: modifyColor(theme.palette.common.black, { setAlpha: 0.8 }),
+  background: modifyColor(theme.palette.common.black, { setAlpha: 0.7 }),
   opacity: 0,
-  transition: '0.1s',
+  transition: 'opacity 225ms cubic-bezier(0.4, 0, 0.2, 1)',
   top: 0,
   left: 0,
-  '&.dackdrop--entering,&.backdrop--entered': {
+  '&.backdrop--entering,&.backdrop--entered': {
     opacity: 1,
-    transitionTimingFunction: 'ease-in',
   },
   '&.dackdrop--exiting,&.dackdrop--exited': {
     opacity: 0,
-    transitionTimingFunction: 'ease-out',
   },
 }));
 
 export function Backdrop({ visible, onClick = NOOP, children }: BackdropProps) {
   return (
-    <Transition in={visible} timeout={100} unmountOnExit={true}>
+    <Transition in={visible} timeout={225} unmountOnExit={true}>
       {(state) => (
         <StyledBackdrop className={`backdrop--${state}`} onClick={onClick}>
           {children}
