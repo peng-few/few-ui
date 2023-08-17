@@ -1,5 +1,4 @@
 import { render, screen } from '../../test-util';
-
 import { Backdrop } from './Backdrop';
 
 describe('Backdrop', () => {

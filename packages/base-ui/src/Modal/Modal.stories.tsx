@@ -1,11 +1,11 @@
 import type { Meta } from '@storybook/react';
-import { Backdrop } from './Backdrop';
+import { Modal } from './Modal';
 import { useArgs } from '@storybook/preview-api';
 import Button from '../Button';
 
-const Story: Meta<typeof Backdrop> = {
-  component: Backdrop,
-  title: ' Backdrop',
+const Story: Meta<typeof Modal> = {
+  component: Modal,
+  title: ' Modal',
 };
 export default Story;
 
@@ -20,11 +20,11 @@ export const BackdropOverview = () => {
         variant="filled"
         onClick={() => updateArgs({ visible: !visible })}
       >
-        opne the backdrop
+        opne the modal
       </Button>
-      <Backdrop visible={visible} onClick={handleClose}>
-        <p>backdrop text</p>
-      </Backdrop>
+      <Modal visible={visible} onClose={handleClose}>
+        <p>Modal text</p>
+      </Modal>
     </div>
   );
 };
