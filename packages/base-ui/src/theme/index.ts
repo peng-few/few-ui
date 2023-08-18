@@ -4,3 +4,5 @@ export {
   type Theme,
 } from './createTheme';
 export { ThemeMode, getThemeMode } from './themeMode';
+export * from './palette';
+export * from './font';

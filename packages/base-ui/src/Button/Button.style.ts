@@ -1,4 +1,4 @@
-import { getThemeMode } from '../styles';
+import { getThemeMode } from '../theme';
 import { modifyColor } from '../util';
 import { css, Theme } from '@emotion/react';
 import { Color, Variant, Size } from './Button.type';

@@ -1,5 +1,5 @@
 import { ColorOption } from './type';
-import { ThemeMode } from '../theme';
+import { ThemeMode } from '../themeMode';
 
 const defaultColorOption: Record<ThemeMode, Required<ColorOption>> = {
   [ThemeMode.Light]: {

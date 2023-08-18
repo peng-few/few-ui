@@ -10,5 +10,6 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/packages/base-ui',
+  collectCoverage: true,
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
 };

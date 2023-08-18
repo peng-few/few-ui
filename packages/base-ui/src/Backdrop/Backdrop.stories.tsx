@@ -20,7 +20,7 @@ export const BackdropOverview = () => {
         variant="filled"
         onClick={() => updateArgs({ visible: !visible })}
       >
-        opne the backdrop
+        open the backdrop
       </Button>
       <Backdrop visible={visible} onClick={handleClose}>
         <p>backdrop text</p>

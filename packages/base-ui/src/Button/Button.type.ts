@@ -1,4 +1,4 @@
-import { PaletteColor } from '../styles';
+import { PaletteColor } from '../theme';
 import React from 'react';
 
 export const Variant = {

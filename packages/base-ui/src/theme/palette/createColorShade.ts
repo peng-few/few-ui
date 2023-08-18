@@ -1,6 +1,6 @@
 import { generate } from '@ant-design/colors';
-import { Hex, Color } from '../type';
-import type { ColorShadeOption, CommonColor, ColorShade } from './type';
+import { Hex, Color } from '../../styles';
+import type { ColorShadeOption, ColorShade } from './type';
 
 export default function createColorShade({
   color,
