@@ -26,7 +26,7 @@ const defaultColorOption: Record<ThemeMode, Required<ColorOption>> = {
     info: '#48b5ff',
     common: {
       black: '#22272e',
-      white: '#f3f6fa',
+      white: '#dfdddd',
     },
     background: '#22272e',
     text: '#e4e4e4',

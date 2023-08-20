@@ -10,7 +10,7 @@ const StyledBackdrop = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'white',
+  color: theme.palette.common.white,
   background: modifyColor(theme.palette.common.black, { setAlpha: 0.7 }),
   opacity: 0,
   transition: 'opacity 225ms cubic-bezier(0.4, 0, 0.2, 1)',
