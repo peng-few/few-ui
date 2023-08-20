@@ -48,7 +48,7 @@ describe('Modal', () => {
     });
   });
 
-  it('should not unmout modal when click close button when "unmountOnExit" set to false', async () => {
+  it('should not unmount modal when click close button when "unmountOnExit" set to false', async () => {
     const { queryByText, getByRole } = render(
       <ModalSimulator visible={true} />,
     );
