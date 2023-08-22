@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface ModalProps extends React.ComponentProps<any> {
+export interface ModalProps extends React.ComponentProps<'div'> {
   width?: string;
   top?: string;
   backDrop?: boolean;
