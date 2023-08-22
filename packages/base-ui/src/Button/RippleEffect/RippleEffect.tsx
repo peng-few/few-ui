@@ -18,12 +18,12 @@ const rippleStartFrame = keyframes`
   }
 `;
 
-const PositionedRipple = styled(Ripple)((props) => ({
-  width: props.size ?? 0,
-  height: props.size ?? 0,
+export const PositionedRipple = styled(Ripple)((props) => ({
+  width: props.size,
+  height: props.size,
   position: 'absolute',
-  top: props.top ?? 0,
-  left: props.left ?? 0,
+  top: props.top,
+  left: props.left,
   animation: `${rippleStartFrame} 0.5s ease forwards`,
 }));
 
@@ -36,7 +36,7 @@ const Container = styled.span({
   overflow: 'hidden',
 });
 
-function getRippleRect(
+export function getRippleRect(
   target: HTMLElement | null,
   { pageX, pageY }: React.MouseEvent,
 ) {
