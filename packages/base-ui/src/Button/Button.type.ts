@@ -39,7 +39,7 @@ export type ButtonProps<Default extends React.ElementType> = Override<
 >;
 
 export interface ButtonWithRef {
-  <As>(props: Props<As>, ref: React.ForwardedRef<any>): JSX.Element;
+  <As>(props: Props<As>, ref: React.ForwardedRef<As>): JSX.Element;
   displayName?: string;
 }
 

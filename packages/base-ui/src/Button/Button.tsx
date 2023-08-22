@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { type ButtonWithRef, Color, Variant, BaseProps } from './Button.type';
 import { RippleEffect, useRipple } from './RippleEffect';
 import React, { useMemo } from 'react';
-import { baseStyle, getVariantStyle, getSizeStyle } from './Button.style';
+import { baseStyle, getVariantStyle, sizeStyle } from './Button.style';
+import { getThemeMode } from '../theme';
 
 const StyleButton = styled('button')<BaseProps>(
   baseStyle,
@@ -14,16 +15,16 @@ const StyleButton = styled('button')<BaseProps>(
     size = 'md',
     theme,
   }) => {
+    const { mode, palette } = theme;
+    const { isDarkMode } = getThemeMode(mode);
     const variantStyle = useMemo(
-      () => getVariantStyle(theme, color, variant),
-      [theme, color, variant],
+      () => getVariantStyle(palette, isDarkMode, color, variant),
+      [palette, color, isDarkMode, variant],
     );
-
-    const sizeStyle = useMemo(() => getSizeStyle(size), [size]);
 
     return [
       variantStyle,
-      sizeStyle,
+      sizeStyle[size],
       rounded ? css({ borderRadius: '100px' }) : '',
     ];
   },
