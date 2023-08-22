@@ -72,6 +72,7 @@ export function Modal({
   top,
   backDrop = true,
   unmountOnExit = true,
+  ...props
 }: ModalProps) {
   const theme = useTheme();
   return createPortal(
@@ -84,7 +85,12 @@ export function Modal({
         unmountOnExit={unmountOnExit}
       >
         {(state) => (
-          <StyledModal width={width} top={top} className={`fade--${state}`}>
+          <StyledModal
+            {...props}
+            width={width}
+            top={top}
+            className={`fade--${state}`}
+          >
             <StyleModalHead>
               {title}
               <Button

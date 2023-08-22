@@ -37,6 +37,7 @@ export const Ripple = ({
   className,
   onExited,
   timeout,
+  ...props
 }: RippleProps) => {
   React.useEffect(() => {
     // 要從 DOM 移除這個 ripple 的動作在 onExited，在消失動畫結束後執行
@@ -53,7 +54,7 @@ export const Ripple = ({
   }, [onExited, isAppear, timeout]);
 
   return (
-    <span className={className}>
+    <span className={className} {...props}>
       <RippleInner
         className={clsx('ripple-child', { 'ripple-child--leaving': !isAppear })}
       />

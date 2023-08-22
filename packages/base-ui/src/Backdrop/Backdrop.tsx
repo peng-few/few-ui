@@ -24,11 +24,20 @@ const StyledBackdrop = styled('div')(({ theme }) => ({
   },
 }));
 
-export function Backdrop({ visible, onClick = NOOP, children }: BackdropProps) {
+export function Backdrop({
+  visible,
+  onClick = NOOP,
+  children,
+  ...props
+}: BackdropProps) {
   return (
     <Transition in={visible} timeout={225} unmountOnExit={true}>
       {(state) => (
-        <StyledBackdrop className={`backdrop--${state}`} onClick={onClick}>
+        <StyledBackdrop
+          {...props}
+          className={`backdrop--${state}`}
+          onClick={onClick}
+        >
           {children}
         </StyledBackdrop>
       )}

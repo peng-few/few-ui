@@ -4,9 +4,11 @@ export const IconClose = ({
   width = 25,
   height = 25,
   color = 'white',
+  ...props
 }: IconProps) => {
   return (
     <svg
+      {...props}
       width={width}
       height={height}
       viewBox="0 0 24 24"
