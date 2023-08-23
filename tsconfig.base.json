@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pengfew/base-ui": ["packages/base-ui/src/index.ts"]
+      "@pengfew/base-ui": ["packages/base-ui/src/index.ts"],
+      "@pengfew/tree-menu": ["packages/tree-menu/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
