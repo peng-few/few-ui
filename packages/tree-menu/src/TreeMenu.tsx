@@ -8,11 +8,7 @@ const StyledTreeMenu = styled.div`
 `;
 
 export function TreeMenu(props: TreeMenuProps) {
-  return (
-    <StyledTreeMenu>
-      <h1>Welcome to TreeMenu!</h1>
-    </StyledTreeMenu>
-  );
+  return <h1>hello</h1>;
 }
 
 export default TreeMenu;

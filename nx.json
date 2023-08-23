@@ -54,10 +54,18 @@
   "generators": {
     "@nx/react": {
       "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint",
+        "bundler": "vite",
         "babel": true
       },
       "library": {
+        "style": "@emotion/styled",
+        "linter": "eslint",
         "unitTestRunner": "jest"
+      },
+      "component": {
+        "style": "@emotion/styled"
       }
     }
   }
