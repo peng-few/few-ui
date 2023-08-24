@@ -46,3 +46,5 @@ export function Backdrop({
 }
 
 Backdrop.displayName = 'Backdrop';
+
+export default Backdrop;

@@ -30,3 +30,5 @@ export const IconClose = ({
     </svg>
   );
 };
+
+export default IconClose;
