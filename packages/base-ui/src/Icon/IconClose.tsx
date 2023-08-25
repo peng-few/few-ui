@@ -3,7 +3,7 @@ import { IconProps } from './Icon.type';
 export const IconClose = ({
   width = 25,
   height = 25,
-  color = 'white',
+  color = '#e0e4eb',
   ...props
 }: IconProps) => {
   return (
@@ -11,21 +11,21 @@ export const IconClose = ({
       {...props}
       width={width}
       height={height}
-      viewBox="0 0 24 24"
+      viewBox="0 0 19 19"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M5.63672 18.3643L18.3646 5.63634"
+        d="M2 2L17 17"
         stroke={color}
-        strokeWidth="2.5"
-        strokeLinecap="round"
+        stroke-width="3"
+        stroke-linecap="round"
       />
       <path
-        d="M5.63672 5.63623L18.3646 18.3642"
+        d="M17 2L2 17"
         stroke={color}
-        strokeWidth="2.5"
-        strokeLinecap="round"
+        stroke-width="3"
+        stroke-linecap="round"
       />
     </svg>
   );
