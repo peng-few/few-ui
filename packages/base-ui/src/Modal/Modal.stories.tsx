@@ -21,7 +21,7 @@ export const SimpleModal = () => {
       <Button variant="filled" onClick={modalChange}>
         open the modal
       </Button>
-      <Modal visible={visible} onClose={modalChange} title="標題">
+      <Modal visible={visible} onClose={modalChange} modalTitle="標題">
         <p>Modal text</p>
       </Modal>
     </div>
@@ -47,7 +47,7 @@ export const NestedModal = () => {
       <Modal
         visible={firstVisible}
         onClose={handleFirstModalChange}
-        title="標題"
+        modalTitle="標題"
       >
         <p>This is the first Modal</p>
         <Button variant="filled" onClick={handleSecondModalChange}>
@@ -56,7 +56,7 @@ export const NestedModal = () => {
         <Modal
           visible={secondVisible}
           onClose={handleSecondModalChange}
-          title="第二層modal"
+          modalTitle="第二層modal"
           width="60%"
         >
           this is the second modal

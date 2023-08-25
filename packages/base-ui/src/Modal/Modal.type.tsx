@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export interface ModalProps extends React.ComponentProps<'div'> {
   width?: string;
@@ -6,6 +6,6 @@ export interface ModalProps extends React.ComponentProps<'div'> {
   backDrop?: boolean;
   visible: boolean;
   onClose: () => void;
-  title?: string;
+  modalTitle?: ReactElement | string;
   unmountOnExit?: boolean;
 }

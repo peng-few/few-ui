@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from '../../test-util';
 import { Modal } from './Modal';
 import React from 'react';
 import { ModalProps } from './Modal.type';
+import { NOOP } from '../util';
 
 const ModalSimulator = ({
   visible: initVisible = false,
@@ -15,6 +16,7 @@ const ModalSimulator = ({
     </Modal>
   );
 };
+
 describe('Modal', () => {
   it('should render successfully', () => {
     render(<ModalSimulator visible={true} />);
@@ -56,5 +58,16 @@ describe('Modal', () => {
     await waitFor(() => {
       expect(expect(queryByText('text')).toBeInTheDocument());
     });
+  });
+
+  it('can pass Element type into modal title,and render correctly', async () => {
+    const Title = () => {
+      return <h3>I am title</h3>;
+    };
+
+    const { getByText } = render(
+      <Modal visible onClose={NOOP} modalTitle={<Title />} />,
+    );
+    expect(getByText('I am title')).toBeInTheDocument();
   });
 });

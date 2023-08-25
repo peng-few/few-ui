@@ -67,7 +67,7 @@ export function Modal({
   visible,
   children,
   onClose,
-  title,
+  modalTitle,
   width,
   top,
   backDrop = true,
@@ -92,7 +92,7 @@ export function Modal({
             className={`fade--${state}`}
           >
             <StyleModalHead>
-              {title}
+              {modalTitle}
               <Button
                 variant="text"
                 rounded
