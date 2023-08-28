@@ -1,6 +1,6 @@
 import { IconProps } from './Icon.type';
 
-export const Icont = ({
+export const IconSearch = ({
   width = 25,
   height = 25,
   color = '#e0e4eb',
@@ -52,4 +52,4 @@ export const Icont = ({
   );
 };
 
-export default Icont;
+export default IconSearch;

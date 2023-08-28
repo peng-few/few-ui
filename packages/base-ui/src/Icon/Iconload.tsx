@@ -32,12 +32,12 @@ export const IconLoad = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="21.5" cy="21.5" r="18.5" stroke={color} stroke-width="6" />
+      <circle cx="21.5" cy="21.5" r="18.5" stroke={color} strokeWidth="6" />
       <path
         d="M9.26306 7.625C5.42237 11.0149 3 15.9745 3 21.5C3 31.7173 11.2827 40 21.5 40C31.7173 40 40 31.7173 40 21.5C40 20.7964 39.9607 20.1019 39.8842 19.4188"
         stroke={background}
-        stroke-width="6"
-        stroke-linecap="round"
+        strokeWidth="6"
+        strokeLinecap="round"
       />
     </svg>
   );

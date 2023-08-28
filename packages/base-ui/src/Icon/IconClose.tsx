@@ -18,14 +18,14 @@ export const IconClose = ({
       <path
         d="M2 2L17 17"
         stroke={color}
-        stroke-width="3"
-        stroke-linecap="round"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
       <path
         d="M17 2L2 17"
         stroke={color}
-        stroke-width="3"
-        stroke-linecap="round"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
     </svg>
   );
