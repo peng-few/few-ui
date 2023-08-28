@@ -7,6 +7,6 @@ module.exports = {
         files => `nx format:write --files=${files.join(',')}`,
     ],
     'packages/**/*.spec.{ts,tsx,js}': files => {
-        return `jest --bail --findRelatedTests ${files.join(" ")}`;
+        return `nx affected -t test --files=${files.join(" ")}`;
     },
 };
