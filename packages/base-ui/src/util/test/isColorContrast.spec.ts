@@ -1,4 +1,4 @@
-import isColorContrast from './isColorContrast';
+import isColorContrast from '../isColorContrast';
 
 describe('isColorContrast', () => {
   it('should return those colors is contrast', () => {
