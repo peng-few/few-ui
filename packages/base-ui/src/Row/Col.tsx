@@ -12,7 +12,7 @@ const StyledCol = styled.div<ColProps>((props) => {
   const widthBreakpoint = extractBreakpoint(props);
   const styles = useBreakpointStyle(widthBreakpoint, (value) => {
     return {
-      width: `${(100 / 12) * value}%`,
+      width: `${(100 / 24) * value}%`,
     };
   });
 

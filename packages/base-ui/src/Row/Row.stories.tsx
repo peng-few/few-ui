@@ -18,21 +18,21 @@ export const Overview = () => {
   return (
     <div>
       <h1>Grid system</h1>
-      <p>為12格柵欄系統，可設定不同breakpoint時的行/列間距</p>
+      <p>為24格柵欄系統，可設定不同breakpoint時的行/列間距</p>
       <hr />
       <p>行間距: xs: 10, md: 20, xl: 30 &nbsp;&nbsp;&nbsp;列間距: 10</p>
       <Row gutter={{ xs: 10, md: 20, xl: 30 }} rowGutter={10}>
-        <Col xs={12} sm={6} md={4}>
-          <Box>sm: 12 / md: 6 / md:4</Box>
+        <Col xs={24} sm={12} md={8}>
+          <Box>sm: 24 / md: 12 / md:8</Box>
         </Col>
-        <Col xs={12} sm={6} md={4}>
-          <Box>sm: 12 / md: 6 / md:4</Box>
+        <Col xs={24} sm={12} md={8}>
+          <Box>sm: 24 / md: 12 / md:8</Box>
         </Col>
-        <Col xs={12} sm={6} md={4}>
-          <Box>sm: 12 / md: 6 / md:4</Box>
+        <Col xs={24} sm={12} md={8}>
+          <Box>sm: 24 / md: 12 / md:8</Box>
         </Col>
-        <Col xs={12} sm={6} md={4}>
-          <Box>sm: 12 / md: 6 / md:4</Box>
+        <Col xs={24} sm={12} md={8}>
+          <Box>sm: 24 / md: 12 / md:8</Box>
         </Col>
       </Row>
     </div>
