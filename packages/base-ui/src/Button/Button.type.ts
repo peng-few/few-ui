@@ -1,4 +1,5 @@
 import { PaletteColor } from '../theme';
+import { Override } from '../util';
 import React from 'react';
 
 export const Variant = {
@@ -32,7 +33,6 @@ export type BaseProps = {
   as?: React.ElementType;
 };
 
-export type Override<T, U> = Omit<T, keyof U> & U;
 export type ButtonProps<Default extends React.ElementType> = Override<
   React.ComponentPropsWithRef<Default>,
   BaseProps

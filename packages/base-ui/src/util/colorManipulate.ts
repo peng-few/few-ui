@@ -19,3 +19,5 @@ export function modifyColor(
     }, tinyColor)
     .toString();
 }
+
+export default modifyColor;
