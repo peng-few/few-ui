@@ -38,7 +38,7 @@ const Container = styled.span({
 
 export function getRippleRect(
   target: HTMLElement | null,
-  { pageX, pageY }: React.MouseEvent,
+  { pageX = 0, pageY = 0 }: React.MouseEvent,
 ) {
   const rect: ContainerRect = target
     ? target.getBoundingClientRect()
