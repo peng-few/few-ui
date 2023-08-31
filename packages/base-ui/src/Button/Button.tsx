@@ -41,6 +41,7 @@ export const Button = React.forwardRef(
       rel = '',
       children,
       type,
+      className,
       ...rest
     },
     ref,
@@ -63,7 +64,7 @@ export const Button = React.forwardRef(
       target,
       href,
       as: component,
-      className: disabled ? 'disabled' : '',
+      className: disabled ? `${className} disabled` : className,
       rel: isAnchor ? getRel(rel) : undefined,
       ...rest,
     };
