@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { BackdropProps } from './Backdrop.type';
 import { modifyColor, NOOP } from '../util';
 import { Transition } from 'react-transition-group';
+import { useTheme } from '../theme';
 
 const StyledBackdrop = styled('div')(({ theme }) => ({
   width: '100%',
@@ -30,11 +31,13 @@ export function Backdrop({
   children,
   ...props
 }: BackdropProps) {
+  const theme = useTheme();
   return (
     <Transition in={visible} timeout={225} unmountOnExit={true}>
       {(state) => (
         <StyledBackdrop
           {...props}
+          theme={theme}
           className={`backdrop--${state}`}
           onClick={onClick}
         >
