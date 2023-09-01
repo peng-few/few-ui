@@ -1,7 +1,9 @@
-import { Palette } from '../theme';
+import { getThemeMode, Palette } from '../theme';
 import { modifyColor } from '../util';
 import { css, SerializedStyles } from '@emotion/react';
-import { Color, Variant, Size } from './Button.type';
+import { Color, Variant, Size, BaseProps } from './Button.type';
+import styled from '@emotion/styled';
+import { useMemo } from 'react';
 
 export const baseStyle = css({
   cursor: 'pointer',
@@ -121,3 +123,28 @@ export const getVariantStyle = (
       });
   }
 };
+
+export const StyleButton = styled('button')<BaseProps>(
+  baseStyle,
+  ({
+    color = Color.Primary,
+    variant = Variant.Default,
+    rounded,
+    size = 'md',
+    theme,
+    icon,
+  }) => {
+    const { mode, palette } = theme;
+    const { isDarkMode } = getThemeMode(mode);
+    const variantStyle = useMemo(
+      () => getVariantStyle(palette, isDarkMode, color, variant),
+      [palette, color, isDarkMode, variant],
+    );
+
+    return [
+      variantStyle,
+      sizeStyle[size],
+      rounded ? css({ borderRadius: '100px' }) : '',
+    ];
+  },
+);

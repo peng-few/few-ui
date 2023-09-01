@@ -31,6 +31,8 @@ export type BaseProps = {
   href?: string;
   /** render為其他element */
   as?: React.ElementType;
+  /** 按鈕的 icon (非instance) */
+  icon?: React.ElementType;
 };
 
 export type ButtonProps<Default extends React.ElementType> = Override<

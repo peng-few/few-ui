@@ -1,34 +1,8 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { type ButtonWithRef, Color, Variant, BaseProps } from './Button.type';
+import { type ButtonWithRef } from './Button.type';
 import { RippleEffect, useRipple } from './RippleEffect';
-import React, { useMemo } from 'react';
-import { baseStyle, getVariantStyle, sizeStyle } from './Button.style';
-import { getThemeMode } from '../theme';
-
-const StyleButton = styled('button')<BaseProps>(
-  baseStyle,
-  ({
-    color = Color.Primary,
-    variant = Variant.Default,
-    rounded,
-    size = 'md',
-    theme,
-  }) => {
-    const { mode, palette } = theme;
-    const { isDarkMode } = getThemeMode(mode);
-    const variantStyle = useMemo(
-      () => getVariantStyle(palette, isDarkMode, color, variant),
-      [palette, color, isDarkMode, variant],
-    );
-
-    return [
-      variantStyle,
-      sizeStyle[size],
-      rounded ? css({ borderRadius: '100px' }) : '',
-    ];
-  },
-);
+import React from 'react';
+import { StyleButton } from './Button.style';
+import { ButtonIcon } from './ButtonIcon';
 
 // use named export can automately generated storybook props table from TypeScript types
 export const Button = React.forwardRef(
@@ -41,6 +15,7 @@ export const Button = React.forwardRef(
       rel = '',
       children,
       type,
+      icon,
       className,
       ...rest
     },
@@ -72,6 +47,9 @@ export const Button = React.forwardRef(
     const { rippleRef, rippleEvents } = useRipple();
     return (
       <StyleButton {...props} ref={ref} {...rippleEvents}>
+        {icon && (
+          <ButtonIcon size={props.size} as={icon} iconOnly={!children} />
+        )}
         {children}
         <RippleEffect ref={rippleRef}></RippleEffect>
       </StyleButton>

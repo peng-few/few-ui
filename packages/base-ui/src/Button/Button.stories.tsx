@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
-import { Color } from './Button.type';
+import { Color, Variant } from './Button.type';
+import { IconSearch } from '../Icon';
 const Story: Meta<typeof Button> = {
   component: Button,
   title: 'Button',
@@ -20,39 +21,46 @@ export const Overview: Story = {
       >
         {Object.values(Color).map((color) => (
           <>
-            <h3 style={{ display: 'inline-block', margin: 0 }}>{color}</h3>
+            <h4 style={{ display: 'inline-block', margin: 0 }}>{color}</h4>
             <div>
-              <Button
-                variant="default"
-                color={color}
-                style={{ marginRight: '10px' }}
-              >
-                Button
-              </Button>
-              <Button
-                variant="filled"
-                color={color}
-                style={{ marginRight: '10px' }}
-              >
-                Button
-              </Button>
-              <Button
-                variant="outlined"
-                color={color}
-                style={{ marginRight: '10px' }}
-              >
-                Button
-              </Button>
-              <Button
-                variant="text"
-                color={color}
-                style={{ marginRight: '10px' }}
-              >
-                Button
-              </Button>
+              {Object.values(Variant).map((variant) => (
+                <Button
+                  variant={variant}
+                  color={color}
+                  style={{ marginRight: '10px' }}
+                >
+                  Button
+                </Button>
+              ))}
             </div>
           </>
         ))}
+        <h4>icon button</h4>
+        <div>
+          {Object.values(Variant).map((variant) => (
+            <Button
+              variant={variant}
+              color="primary"
+              style={{ marginRight: '10px' }}
+              rounded
+              icon={IconSearch}
+            ></Button>
+          ))}
+        </div>
+        <h4>icon + text button</h4>
+        <div>
+          {Object.values(Variant).map((variant) => (
+            <Button
+              variant={variant}
+              color="primary"
+              style={{ marginRight: '10px' }}
+              rounded
+              icon={IconSearch}
+            >
+              button
+            </Button>
+          ))}
+        </div>
       </div>
     );
   },
