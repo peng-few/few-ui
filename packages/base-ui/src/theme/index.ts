@@ -6,3 +6,4 @@ export {
 export { ThemeMode, getThemeMode } from './themeMode';
 export * from './palette';
 export * from './font';
+export * from './useTheme';

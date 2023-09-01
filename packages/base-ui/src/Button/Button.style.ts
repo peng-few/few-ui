@@ -1,4 +1,4 @@
-import { getThemeMode, Palette } from '../theme';
+import { getThemeMode, Palette, useTheme } from '../theme';
 import { modifyColor } from '../util';
 import { css } from '@emotion/react';
 import { Color, Variant, Size, BaseProps } from './Button.type';
@@ -123,10 +123,9 @@ export const StyleButton = styled('button')<BaseProps & { iconOnly: boolean }>(
     variant = Variant.Default,
     rounded,
     size = 'md',
-    theme,
     iconOnly,
   }) => {
-    const { mode, palette } = theme;
+    const { mode, palette } = useTheme();
     const { isDarkMode } = getThemeMode(mode);
     const colorStyle = useMemo(
       () => getColorStyle(palette, isDarkMode, color, variant),

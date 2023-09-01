@@ -1,4 +1,5 @@
-import { CSSObject, css, useTheme } from '@emotion/react';
+import { CSSObject, css } from '@emotion/react';
+import { useTheme } from '../theme';
 import { Breakpoint } from '../theme/breakpoint';
 import extractBreakpoint from './extractBreakpoint';
 

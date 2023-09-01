@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
 import Backdrop from '../Backdrop';
 import Button from '../Button';
-
 import { ModalProps } from './Modal.type';
 import { IconClose } from '../Icon';
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import { createPortal } from 'react-dom';
 import { Transition } from 'react-transition-group';
 import { modifyColor } from '../util';
-import { getThemeMode } from '../theme';
+import { getThemeMode, useTheme } from '../theme';
 
 const StyledModal = styled.div<Pick<ModalProps, 'width' | 'top'>>(
   ({ theme, width = '650px', top = '40%' }) => {
@@ -86,8 +85,9 @@ export function Modal({
             width={width}
             top={top}
             className={`fade--${state}`}
+            theme={theme}
           >
-            <StyleModalHead>
+            <StyleModalHead theme={theme}>
               {modalTitle}
               <Button
                 variant="text"
