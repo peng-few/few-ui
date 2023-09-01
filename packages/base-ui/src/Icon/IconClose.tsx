@@ -3,7 +3,7 @@ import { IconProps } from './Icon.type';
 export const IconClose = ({
   width = 25,
   height = 25,
-  color = '#e0e4eb',
+  color = 'currentcolor',
   ...props
 }: IconProps) => {
   return (

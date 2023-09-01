@@ -18,7 +18,7 @@ const rotate = keyframes`
 export const IconLoad = ({
   width = 43,
   height = 43,
-  color = '#e0e4eb',
+  color = 'currentcolor',
   background = '#e4e9f1',
   ...props
 }: IconLoadProps) => {
