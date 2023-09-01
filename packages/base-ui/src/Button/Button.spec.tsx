@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '../../test-util';
 import { createPalette } from '../theme';
 import { Button } from './Button';
-import { getVariantStyle } from './Button.style';
+import { getColorStyle } from './Button.style';
 import { Color, Variant } from './Button.type';
 
 function Link(props: { to: string }) {
@@ -79,10 +79,10 @@ describe('Button', () => {
       expect(rippleContainer?.childNodes.length).toEqual(0);
     });
   });
-  it('should retrieve the CSS styles Using "getVariantStyle" with all variants', () => {
+  it('should retrieve the color styles Using "getColorStyle" with all variants', () => {
     const palette = createPalette({}, false);
     Object.values(Variant).forEach((variant) => {
-      const cssStyle = getVariantStyle(palette, false, Color.Primary, variant);
+      const cssStyle = getColorStyle(palette, false, Color.Primary, variant);
       expect(cssStyle).toBeTruthy();
     });
   });
