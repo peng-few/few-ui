@@ -53,10 +53,6 @@ const StyleModalHead = styled.div(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-const cssCloseButton = css({
-  padding: '3px 6px',
-});
-
 const StyleModalBody = styled.div({
   padding: '0 15px 25px',
   maxHeight: '60vh',
@@ -96,15 +92,10 @@ export function Modal({
               <Button
                 variant="text"
                 rounded
-                css={cssCloseButton}
+                css={css({ color: theme.palette.grey.main })}
                 onClick={onClose}
-              >
-                <IconClose
-                  width={15}
-                  height={15}
-                  color={theme.palette.grey.main}
-                />
-              </Button>
+                icon={IconClose}
+              ></Button>
             </StyleModalHead>
             <StyleModalBody>{children}</StyleModalBody>
           </StyledModal>

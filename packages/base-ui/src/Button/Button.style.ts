@@ -1,50 +1,43 @@
 import { getThemeMode, Palette } from '../theme';
 import { modifyColor } from '../util';
-import { css, SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import { Color, Variant, Size, BaseProps } from './Button.type';
 import styled from '@emotion/styled';
 import { useMemo } from 'react';
 
-export const baseStyle = css({
-  cursor: 'pointer',
-  border: '1px solid',
-  fontWeight: 'bold',
-  transition: '0.12s',
-  textDecoration: 'none',
-  display: 'inline-block',
-  letterSpacing: '0.2px',
-  position: 'relative',
-  overflow: 'hidden',
-  '&.disabled': {
-    pointerEvents: 'none',
-    cursor: 'default',
-  },
-});
-
-export const sizeStyle: Record<Size, SerializedStyles> = {
-  xs: css({
-    padding: '3px 8px',
-    fontSize: '0.8125rem',
-    borderRadius: '4px',
-  }),
-  sm: css({
-    padding: '5px 12px',
-    fontSize: '0.9rem',
-    borderRadius: '6px',
-  }),
-  md: css({
-    padding: '5px 13px',
-    fontSize: '1rem',
-    borderRadius: '7px',
-  }),
-  lg: css({
-    padding: '8px 18px',
-    fontSize: '1.125rem',
-    borderRadius: '8px',
-  }),
+const paddingStyle = (size: Size, iconOnly: boolean) => {
+  const options: Record<Size, string> = {
+    xs: iconOnly ? '3px' : '3px 8px',
+    sm: iconOnly ? '5px' : '5px 12px',
+    md: iconOnly ? '5px' : '5px 13px',
+    lg: iconOnly ? '8px' : '8px 18px',
+  };
+  return options[size];
 };
 
-export const getVariantStyle = (
+export const sizeStyle: Record<
+  Size,
+  Record<'fontSize' | 'borderRadius', string>
+> = {
+  xs: {
+    fontSize: '0.8125rem',
+    borderRadius: '4px',
+  },
+  sm: {
+    fontSize: '0.9rem',
+    borderRadius: '6px',
+  },
+  md: {
+    fontSize: '1rem',
+    borderRadius: '7px',
+  },
+  lg: {
+    fontSize: '1.125rem',
+    borderRadius: '8px',
+  },
+};
+
+export const getColorStyle = (
   palette: Palette,
   isDarkMode: boolean,
   color: Color,
@@ -124,27 +117,48 @@ export const getVariantStyle = (
   }
 };
 
-export const StyleButton = styled('button')<BaseProps>(
-  baseStyle,
+export const StyleButton = styled('button')<BaseProps & { iconOnly: boolean }>(
   ({
     color = Color.Primary,
     variant = Variant.Default,
     rounded,
     size = 'md',
     theme,
-    icon,
+    iconOnly,
   }) => {
     const { mode, palette } = theme;
     const { isDarkMode } = getThemeMode(mode);
-    const variantStyle = useMemo(
-      () => getVariantStyle(palette, isDarkMode, color, variant),
+    const colorStyle = useMemo(
+      () => getColorStyle(palette, isDarkMode, color, variant),
       [palette, color, isDarkMode, variant],
     );
+    const { fontSize, borderRadius } = sizeStyle[size];
 
     return [
-      variantStyle,
-      sizeStyle[size],
-      rounded ? css({ borderRadius: '100px' }) : '',
+      {
+        cursor: 'pointer',
+        border: '1px solid',
+        fontWeight: 'bold',
+        transition: '0.12s',
+        textDecoration: 'none',
+        display: 'inline-flex',
+        alignItems: 'center',
+        letterSpacing: '0.2px',
+        position: 'relative',
+        overflow: 'hidden',
+        padding: paddingStyle(size, iconOnly),
+        lineHeight: iconOnly ? 0 : 1,
+        fontSize,
+        borderRadius: rounded ? '100%' : borderRadius,
+        '&>*': {
+          verticalAlign: 'middle',
+        },
+        '&.disabled': {
+          pointerEvents: 'none',
+          cursor: 'default',
+        },
+      },
+      colorStyle,
     ];
   },
 );

@@ -15,13 +15,12 @@ export const ButtonIcon = ({
   const sizeOptions: Record<Size, number> = {
     xs: 10,
     sm: 12,
-    md: 15,
+    md: 14,
     lg: 18,
   };
 
   const cssValue = css({
-    marginRight: iconOnly ? 0 : '10x',
-    lineHeight: 0,
+    marginRight: iconOnly ? 0 : '5px',
   });
 
   return <Icon size={sizeOptions[size]} css={cssValue} />;

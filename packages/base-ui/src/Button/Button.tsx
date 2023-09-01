@@ -46,7 +46,12 @@ export const Button = React.forwardRef(
 
     const { rippleRef, rippleEvents } = useRipple();
     return (
-      <StyleButton {...props} ref={ref} {...rippleEvents}>
+      <StyleButton
+        {...props}
+        ref={ref}
+        {...rippleEvents}
+        iconOnly={!(children || !icon)}
+      >
         {icon && (
           <ButtonIcon size={props.size} as={icon} iconOnly={!children} />
         )}

@@ -17,6 +17,7 @@ export const Overview: Story = {
           display: 'grid',
           gridTemplateColumns: '100px 1fr',
           gridAutoRows: '50px',
+          alignItems: 'center',
         }}
       >
         {Object.values(Color).map((color) => (
@@ -47,14 +48,13 @@ export const Overview: Story = {
             ></Button>
           ))}
         </div>
-        <h4>icon + text button</h4>
+        <h4>with text</h4>
         <div>
           {Object.values(Variant).map((variant) => (
             <Button
               variant={variant}
               color="primary"
               style={{ marginRight: '10px' }}
-              rounded
               icon={IconSearch}
             >
               button
