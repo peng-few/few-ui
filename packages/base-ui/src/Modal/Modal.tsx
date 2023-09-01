@@ -93,7 +93,7 @@ export function Modal({
               <Button
                 variant="text"
                 rounded
-                css={css({ color: theme.palette.grey.main })}
+                style={{ color: theme.palette.grey.main }}
                 onClick={onClose}
                 icon={IconClose}
               ></Button>
