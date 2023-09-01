@@ -16,8 +16,9 @@ const rotate = keyframes`
 `;
 
 export const IconLoad = ({
-  width = 43,
-  height = 43,
+  size = 43,
+  width = size,
+  height = size,
   color = 'currentcolor',
   background = '#e4e9f1',
   ...props

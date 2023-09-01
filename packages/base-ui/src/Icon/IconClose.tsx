@@ -1,8 +1,9 @@
 import { IconProps } from './Icon.type';
 
 export const IconClose = ({
-  width = 25,
-  height = 25,
+  size = 25,
+  width = size,
+  height = size,
   color = 'currentcolor',
   ...props
 }: IconProps) => {
