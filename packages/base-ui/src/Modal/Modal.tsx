@@ -50,6 +50,7 @@ const StyleModalHead = styled.div(({ theme }) => ({
   fontSize: theme.font.lg,
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
 }));
 
 const StyleModalBody = styled.div({
@@ -88,7 +89,7 @@ export function Modal({
             theme={theme}
           >
             <StyleModalHead theme={theme}>
-              {modalTitle}
+              <div css={css({ flexGrow: 1 })}>{modalTitle}</div>
               <Button
                 variant="text"
                 rounded
