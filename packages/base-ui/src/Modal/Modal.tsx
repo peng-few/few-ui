@@ -3,7 +3,6 @@ import Backdrop from '../Backdrop';
 import Button from '../Button';
 import { ModalProps } from './Modal.type';
 import { IconClose } from '../Icon';
-import { css } from '@emotion/react';
 import { createPortal } from 'react-dom';
 import { Transition } from 'react-transition-group';
 import { modifyColor } from '../util';
@@ -39,25 +38,23 @@ const StyledModal = styled.div<Pick<ModalProps, 'width' | 'top'>>(
       '&.fade--exited': {
         display: 'none',
       },
+      '& .few-modal-head': {
+        padding: '17px 15px',
+        fontWeight: 'bold',
+        letterSpacing: '.1em',
+        fontSize: theme.font.lg,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+      '& .few-modal-body': {
+        padding: '0 15px 25px',
+        maxHeight: '60vh',
+        overflowY: 'auto',
+      },
     };
   },
 );
-
-const StyleModalHead = styled.div(({ theme }) => ({
-  padding: '17px 15px',
-  fontWeight: 'bold',
-  letterSpacing: '.1em',
-  fontSize: theme.font.lg,
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-}));
-
-const StyleModalBody = styled.div({
-  padding: '0 15px 25px',
-  maxHeight: '60vh',
-  overflowY: 'auto',
-});
 
 export function Modal({
   visible,
@@ -88,8 +85,8 @@ export function Modal({
             className={`fade--${state}`}
             theme={theme}
           >
-            <StyleModalHead theme={theme}>
-              <div css={css({ flexGrow: 1 })}>{modalTitle}</div>
+            <div className="few-modal-head">
+              <div css={{ flexGrow: 1 }}>{modalTitle}</div>
               <Button
                 variant="text"
                 rounded
@@ -97,8 +94,8 @@ export function Modal({
                 onClick={onClose}
                 icon={IconClose}
               ></Button>
-            </StyleModalHead>
-            <StyleModalBody>{children}</StyleModalBody>
+            </div>
+            <div className="few-modal-body">{children}</div>
           </StyledModal>
         )}
       </Transition>
