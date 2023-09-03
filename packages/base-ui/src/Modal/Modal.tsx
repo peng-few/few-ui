@@ -82,7 +82,7 @@ export function Modal({
             {...props}
             width={width}
             top={top}
-            className={`fade--${state}`}
+            className={`fade--${state} ${props.className}`}
             theme={theme}
           >
             <div className="few-modal-head">
