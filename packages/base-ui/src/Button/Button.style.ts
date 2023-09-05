@@ -1,7 +1,7 @@
 import { getThemeMode, Palette, useTheme } from '../theme';
 import { modifyColor } from '../util';
 import { css } from '@emotion/react';
-import { Color, Variant, Size, BaseProps } from './Button.type';
+import { ButtonColor, Variant, Size, BaseProps } from './Button.type';
 import styled from '@emotion/styled';
 import { useMemo } from 'react';
 
@@ -40,7 +40,7 @@ export const sizeStyle: Record<
 export const getColorStyle = (
   palette: Palette,
   isDarkMode: boolean,
-  color: Color,
+  color: ButtonColor,
   variant: Variant,
 ) => {
   const mainColorShade = palette[color];
@@ -119,7 +119,7 @@ export const getColorStyle = (
 
 export const StyleButton = styled('button')<BaseProps & { iconOnly: boolean }>(
   ({
-    color = Color.Primary,
+    color = ButtonColor.Primary,
     variant = Variant.Default,
     rounded,
     size = 'md',

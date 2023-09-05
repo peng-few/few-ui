@@ -10,9 +10,9 @@ export const Variant = {
 } as const;
 export type Variant = (typeof Variant)[keyof typeof Variant];
 
-const { Grey, ...Color } = PaletteColor;
-export { Color };
-export type Color = Exclude<PaletteColor, 'grey'>;
+const { Grey, ...ButtonColor } = PaletteColor;
+export { ButtonColor };
+export type ButtonColor = Exclude<PaletteColor, 'grey'>;
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg';
 
@@ -20,7 +20,7 @@ export type BaseProps = {
   /** 按鈕的類型 */
   variant?: Variant;
   /** 按鈕的顏色 */
-  color?: Color;
+  color?: ButtonColor;
   /** 使否為圓角按鈕 */
   rounded?: boolean;
   /** 按鈕的大小 */
