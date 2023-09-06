@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
-import { Color, Variant } from './Button.type';
+import { ButtonColor, Variant } from './Button.type';
 import { IconSearch } from '../Icon';
 const Story: Meta<typeof Button> = {
   component: Button,
@@ -20,7 +20,7 @@ export const Overview: Story = {
           alignItems: 'center',
         }}
       >
-        {Object.values(Color).map((color) => (
+        {Object.values(ButtonColor).map((color) => (
           <>
             <h4 style={{ display: 'inline-block', margin: 0 }}>{color}</h4>
             <div>
