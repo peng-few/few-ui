@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { CheckboxProps, CheckboxSizeProp } from './Checkbox.type';
-import { Theme, keyframes, useTheme } from '@emotion/react';
+import { Theme, keyframes } from '@emotion/react';
 import classNames from 'classnames';
-import { FontToken } from '../theme';
+import { FontToken, useTheme } from '../theme';
 import { rescaleCss } from '../util';
 
 const originInputCss = (theme: Theme, size: keyof FontToken) => {
