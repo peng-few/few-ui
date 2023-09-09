@@ -18,16 +18,6 @@ export const useSelections = <Option extends BaseOption = DefaultOption>(
   );
   const [optionCount, setOptionCount] = useState({});
 
-  const selectedDescendant =
-    (selections: Set<string>) => (result: Option[], option: Option) => {
-      if (selections.has(option[valueName])) {
-        result.push(option);
-      } else if (option[childrenName]) {
-        option[childrenName].reduce(selectedDescendant(selections), result);
-      }
-      return result;
-    };
-
   const getSelectedDescendant = (
     selections: Set<string>,
     rootOption: Option,
