@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckboxProps, CheckboxSizeProp } from './Checkbox.type';
 import { Theme, keyframes } from '@emotion/react';
 import classNames from 'classnames';
 import { FontToken, useTheme } from '../theme';
 import { rescaleCss } from '../util';
+import { Transition } from 'react-transition-group';
 
 const originInputCss = (theme: Theme, size: keyof FontToken) => {
   const inputSize = rescaleCss(theme.font[size], 0.8);
@@ -103,6 +104,13 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
   ) => {
     const theme = useTheme();
+    const [prevChecked, setPrevChecked] = useState(checked);
+    const isCheckChange = prevChecked !== checked;
+
+    useEffect(() => {
+      setPrevChecked(checked);
+    }, [checked, setPrevChecked]);
+
     return (
       <StyleLabel
         theme={theme}
@@ -119,7 +127,14 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           onChange={onChange}
           disabled={disabled}
         />
-        {checked && <StyleRipple theme={theme} size={size} />}
+        <Transition
+          in={isCheckChange}
+          timeout={150}
+          mountOnEnter={true}
+          unmountOnExit={true}
+        >
+          <StyleRipple theme={theme} size={size} />
+        </Transition>
         <StyledCheckbox
           {...props}
           theme={theme}
