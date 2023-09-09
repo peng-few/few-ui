@@ -10,12 +10,15 @@ export interface DefaultOption extends BaseOption {
   [DefaultFieldName.Children]?: DefaultOption[];
 }
 
-export interface TreeMenuProps<Option> extends ModalProps {
+export interface TreeMenuProps<Option> extends Omit<ModalProps, 'onChange'> {
   title?: string;
   valueName?: string;
   labelName?: string;
   childreName?: string;
   options: Option[];
-  /** 決定選單顯示到幾層與買層的grid */
-  grid: Partial<GenericBreakpoint<number>>[];
+  /** 決定選單顯示到幾層與每層的grid */
+  grids?: Partial<GenericBreakpoint<number>>[];
+  multiple?: true;
+  value?: string[];
+  onChange: (value: string[]) => void;
 }

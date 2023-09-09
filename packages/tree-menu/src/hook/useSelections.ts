@@ -1,0 +1,94 @@
+import { useState } from 'react';
+import usefocusOption from './useFocusOption';
+import { BaseOption, DefaultOption } from '../TreeMenu.type';
+import useFieldName from './useFieldName';
+
+export type selectionChangeProps<Option> = {
+  event: React.ChangeEvent<HTMLInputElement>;
+  level: number;
+  option: Option;
+};
+export const useSelections = <Option extends BaseOption = DefaultOption>(
+  defaultValue?: string[],
+) => {
+  const [focusOptions, setFocusOptions] = usefocusOption<Option>();
+  const { valueName, childrenName, labelName } = useFieldName();
+  const [selections, setSelections] = useState<Set<string>>(
+    new Set(defaultValue),
+  );
+  const [optionCount, setOptionCount] = useState({});
+
+  const isInSelections = (selections: Set<string>) => (option: Option) =>
+    selections.has(option[valueName]);
+
+  const removeChildSelections = (targetOption: Option) => {
+    setSelections((prevSelections) => {
+      const childOptions: Option[] | undefined = targetOption[childrenName];
+      const nextSelections = new Set(prevSelections);
+
+      childOptions
+        ?.filter(isInSelections(nextSelections))
+        ?.forEach((option) => {
+          nextSelections.delete(option[valueName]);
+        });
+
+      return nextSelections;
+    });
+  };
+
+  const addChildSelections = (targetOption: Option) => {
+    const childOptions: Option[] | undefined = targetOption[childrenName];
+    childOptions?.forEach((option) => {
+      addSelection(option);
+    });
+  };
+
+  const addSelection = (option: Option) => {
+    setSelections((prev) => {
+      const next = new Set(prev);
+      next.add(option[valueName]);
+      return next;
+    });
+
+    removeChildSelections(option);
+  };
+
+  const removeSelection = (option: Option, level: number) => {
+    if (!selections.has(option[valueName])) {
+      removeSelection(focusOptions[level - 1], level - 1);
+      addChildSelections(focusOptions[level - 1]);
+    }
+
+    setSelections((prev) => {
+      const next = new Set(prev);
+      next.delete(option[valueName]);
+      return next;
+    });
+  };
+
+  const selectionChange = ({
+    event,
+    level,
+    option,
+  }: selectionChangeProps<Option>) => {
+    const {
+      target: { checked },
+    } = event;
+
+    if (checked) {
+      addSelection(option);
+    } else {
+      removeSelection(option, level);
+    }
+  };
+
+  return {
+    focusOptions,
+    setFocusOptions,
+    selections,
+    selectionChange,
+    optionCount,
+  };
+};
+
+export default useSelections;

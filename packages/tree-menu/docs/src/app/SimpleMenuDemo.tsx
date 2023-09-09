@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Industries from './Industries.json';
 const SimpleMenuDemo = () => {
   const [visible, setVisible] = useState(true);
-  const [option, setOption] = useState(Industries);
-
+  const [option] = useState(Industries);
+  const [value, setValue] = useState<string[]>();
   return (
     <>
       <h1>一般的三層選單</h1>
+      <p>以選擇{value?.join('、')}</p>
       <Button size="lg" onClick={() => setVisible(true)}>
         打開選單
       </Button>
@@ -17,6 +18,8 @@ const SimpleMenuDemo = () => {
         onClose={() => setVisible(false)}
         options={option}
         title="行業類別"
+        value={value}
+        onChange={(val) => setValue(val)}
       />
     </>
   );

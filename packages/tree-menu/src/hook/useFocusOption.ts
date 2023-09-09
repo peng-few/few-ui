@@ -2,22 +2,26 @@ import { useState } from 'react';
 import { BaseOption, DefaultOption } from '../TreeMenu.type';
 
 /**
- * usage: const [selectedLv1Value,setSelectedLv1,Lv2Options] = useSelectOption({})
+ *
  * return  [
- *  [0] : 目前選取值得各層的option e.g. {value: 5,label: 'name', children: {...}}
+ *  [0] : {[valueName]: string,[labelName]: string, [childrenName]: Option}[]
  *  [1] : setState function
  * ]
  */
 export const useFocusOption = <Option extends BaseOption = DefaultOption>(
   defaultOption = [],
 ) => {
-  const [focusOption, setFocusOption] = useState<Option[]>(defaultOption);
+  const [focusOptions, setFocusOptions] = useState<Option[]>(defaultOption);
+  const isSelectAllOption = (option: Option) =>
+    focusOptions[focusOptions.length - 1] === option;
 
-  const setNewFocusOption = (level: number, option: Option) => {
-    setFocusOption([...focusOption.slice(0, level), option]);
+  const setNewFocusOptions = (level: number, option: Option) => {
+    if (isSelectAllOption(option)) return;
+
+    setFocusOptions([...focusOptions.slice(0, level), option]);
   };
 
-  return [focusOption, setNewFocusOption] as const;
+  return [focusOptions, setNewFocusOptions] as const;
 };
 
 export default useFocusOption;

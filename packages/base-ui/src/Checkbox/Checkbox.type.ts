@@ -8,5 +8,5 @@ export interface CheckboxProps
     CheckboxSizeProp {
   css?: Interpolation<Theme>;
   checked: boolean;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

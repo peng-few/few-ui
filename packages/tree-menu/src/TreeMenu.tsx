@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
-import { Row, Modal, useTheme } from '@pengfew/base-ui';
+import { Row, Modal, useTheme, Checkbox } from '@pengfew/base-ui';
 import { FieldNameProvider, DefaultFieldName } from './hook/useFieldName';
 import { TreeMenuProps, BaseOption, DefaultOption } from './TreeMenu.type';
 import { Theme } from '@emotion/react';
 import usefocusOption from './hook/useFocusOption';
 import SwiperCol from './component/SwpierCol';
 import classNames from 'classnames';
+import useSelections from './hook/useSelections';
+import { useEffect } from 'react';
 
 export const StyleTitle = styled.h3(({ theme }) => ({
   fontSize: theme.font.lg,
@@ -17,6 +19,7 @@ export const StyleTitle = styled.h3(({ theme }) => ({
     verticalAlign: 'middle',
   },
 }));
+
 export const StyleList = styled.ul(({ theme }) => ({
   listStyle: 'none',
   cursor: 'pointer',
@@ -49,17 +52,16 @@ export const StyleList = styled.ul(({ theme }) => ({
       },
     },
   },
-  // '&.is-last': {
-  //   display: 'grid',
-  //   gridTemplateColumns: '1fr 1fr',
-  //   gap: '10px',
-  //   padding: '10px',
-  //   'li': {
-  //     border: `1px solid ${theme.palette.grey.light}`,
-  //     borderRadius: '10px',
-  //     overflow: 'hidden'
-  //   }
-  // }
+  '&.is-last': {
+    li: {
+      '&:after': {
+        display: 'none',
+      },
+      '&.active': {
+        color: 'currentcolor',
+      },
+    },
+  },
 }));
 
 export const modalCss = (theme: Theme) => ({
@@ -70,6 +72,7 @@ export const modalCss = (theme: Theme) => ({
     padding: 0,
   },
 });
+
 export const rowCss = (theme: Theme) => ({
   '&>div': {
     borderRight: `1px solid ${theme.palette.grey.light}`,
@@ -90,15 +93,33 @@ export const TreeMenu = <Option extends BaseOption = DefaultOption>({
   valueName = DefaultFieldName.Value,
   labelName = DefaultFieldName.Label,
   childreName = DefaultFieldName.Children,
-  grid = defaultGrid,
+  grids = defaultGrid,
   options: lv1Options,
+  value,
+  onChange,
 }: TreeMenuProps<Option>) => {
   const theme = useTheme();
-  const [focusOption, setFocusOption] = usefocusOption<Option>();
+  const { focusOptions, setFocusOptions, selections, selectionChange } =
+    useSelections<Option>(value);
+
   const levelOptions: Option[][] = [
     lv1Options,
-    ...focusOption.map((option) => option?.[childreName]),
+    ...focusOptions.map((option) => option?.[childreName]),
   ];
+
+  const focusValues = focusOptions.map((option) => option[valueName]);
+  const isLastLevel = (level: number) => level === grids.length - 1;
+  const hasParent = (level: number) => levelOptions[level] && level !== 0;
+  const isChecked = (value: string, level: number) => {
+    return (
+      selections.has(value) ||
+      !!focusValues.slice(0, level).find((value) => selections.has(value))
+    );
+  };
+
+  useEffect(() => {
+    onChange([...selections]);
+  }, [selections]);
 
   return (
     <FieldNameProvider
@@ -114,38 +135,56 @@ export const TreeMenu = <Option extends BaseOption = DefaultOption>({
         modalTitle={<StyleTitle theme={theme}>{title}</StyleTitle>}
       >
         <Row css={rowCss(theme)}>
-          {grid.map((breakpoint, level) => (
+          {grids.map((grid, level) => (
             <SwiperCol
-              {...breakpoint}
+              key={level}
+              {...grid}
               slideHeight={levelOptions[level]?.length}
             >
               <StyleList
                 theme={theme}
-                className={classNames({ 'is-last': level === grid.length - 1 })}
+                className={classNames({ 'is-last': isLastLevel(level) })}
               >
-                {levelOptions[level] && level !== 0 && (
-                  <li>
-                    <label>
-                      <input type="checkbox"></input>
+                {hasParent(level) && (
+                  <li
+                    onClick={() =>
+                      setFocusOptions(level, focusOptions[level - 1])
+                    }
+                  >
+                    <Checkbox
+                      onChange={(event) =>
+                        selectionChange({
+                          event,
+                          level,
+                          option: focusOptions[level - 1],
+                        })
+                      }
+                      checked={isChecked(focusValues[level - 1], level)}
+                    >
                       全選
-                    </label>
+                    </Checkbox>
                   </li>
                 )}
                 {levelOptions[level]?.map((option) => (
                   <li
-                    onClick={() => setFocusOption(level, option)}
+                    key={option[valueName]}
+                    onClick={() => setFocusOptions(level, option)}
                     className={
-                      focusOption[level]?.[valueName] === option[valueName]
-                        ? 'active'
-                        : ''
+                      focusValues[level] === option[valueName] ? 'active' : ''
                     }
                   >
-                    <label>
-                      {level === grid.length - 1 && (
-                        <input type="checkbox"></input>
-                      )}
-                      {option[labelName]}
-                    </label>
+                    {isLastLevel(level) ? (
+                      <Checkbox
+                        onChange={(event) =>
+                          selectionChange({ event, level, option })
+                        }
+                        checked={isChecked(option[valueName], level)}
+                      >
+                        {option[labelName]}
+                      </Checkbox>
+                    ) : (
+                      option[labelName]
+                    )}
                   </li>
                 ))}
               </StyleList>
