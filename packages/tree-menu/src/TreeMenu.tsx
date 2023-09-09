@@ -180,6 +180,7 @@ export const TreeMenu = <Option extends BaseOption = DefaultOption>({
                         }
                         checked={isChecked(option[valueName], level)}
                       >
+                        {option[valueName]}
                         {option[labelName]}
                       </Checkbox>
                     ) : (

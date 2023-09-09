@@ -12,25 +12,51 @@ export const useSelections = <Option extends BaseOption = DefaultOption>(
   defaultValue?: string[],
 ) => {
   const [focusOptions, setFocusOptions] = usefocusOption<Option>();
-  const { valueName, childrenName, labelName } = useFieldName();
+  const { valueName, childrenName } = useFieldName();
   const [selections, setSelections] = useState<Set<string>>(
     new Set(defaultValue),
   );
   const [optionCount, setOptionCount] = useState({});
 
-  const isInSelections = (selections: Set<string>) => (option: Option) =>
-    selections.has(option[valueName]);
+  const selectedDescendant =
+    (selections: Set<string>) => (result: Option[], option: Option) => {
+      if (selections.has(option[valueName])) {
+        result.push(option);
+      } else if (option[childrenName]) {
+        option[childrenName].reduce(selectedDescendant(selections), result);
+      }
+      return result;
+    };
+
+  const getSelectedDescendant = (
+    selections: Set<string>,
+    rootOption: Option,
+  ): Option[] => {
+    if (!rootOption[childrenName]) return [];
+
+    return rootOption[childrenName].reduce(
+      (result: Option[], option: Option) => {
+        if (selections.has(option[valueName])) {
+          result.push(option);
+        }
+
+        if (option[childrenName]) {
+          result.push(...getSelectedDescendant(selections, option));
+        }
+
+        return result;
+      },
+      [],
+    );
+  };
 
   const removeChildSelections = (targetOption: Option) => {
     setSelections((prevSelections) => {
-      const childOptions: Option[] | undefined = targetOption[childrenName];
       const nextSelections = new Set(prevSelections);
 
-      childOptions
-        ?.filter(isInSelections(nextSelections))
-        ?.forEach((option) => {
-          nextSelections.delete(option[valueName]);
-        });
+      getSelectedDescendant(nextSelections, targetOption).forEach((option) => {
+        nextSelections.delete(option[valueName]);
+      });
 
       return nextSelections;
     });
