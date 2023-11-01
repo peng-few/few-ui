@@ -54,7 +54,7 @@ export const Overview: Story = {
             <Button
               variant={variant}
               color="primary"
-              style={{ marginRight: '10px' }}
+              style={{ marginRight: '15px' }}
               icon={IconSearch}
             >
               button

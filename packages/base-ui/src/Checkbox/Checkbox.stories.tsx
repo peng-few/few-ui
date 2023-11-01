@@ -43,7 +43,7 @@ export const Overview = () => {
   );
 };
 export const Control: Story = {
-  name: 'Filled Checkbox',
+  name: 'Checkbox (with Controls)',
   args: {
     size: 'md',
     children: 'checkbox',
