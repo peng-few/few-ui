@@ -19,7 +19,6 @@ export default defineConfig({
       root: '../../',
     }),
   ],
-  base: '/few-ui/',
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [

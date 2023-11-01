@@ -5,7 +5,7 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   cacheDir: '../../../node_modules/.vite/tree-menu-docs',
-
+  base: '/few-ui/',
   server: {
     port: 4200,
     host: 'localhost',
