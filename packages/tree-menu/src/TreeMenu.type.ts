@@ -20,5 +20,5 @@ export interface TreeMenuProps<Option> extends Omit<ModalProps, 'onChange'> {
   grids?: Partial<GenericBreakpoint<number>>[];
   multiple?: true;
   value?: string[];
-  onChange: (value: string[]) => void;
+  onChange: (value: string[], labels: string[]) => void;
 }

@@ -3,11 +3,9 @@ import { Row, Modal, useTheme, Checkbox } from '@pengfew/base-ui';
 import { FieldNameProvider, DefaultFieldName } from './hook/useFieldName';
 import { TreeMenuProps, BaseOption, DefaultOption } from './TreeMenu.type';
 import { Theme } from '@emotion/react';
-import usefocusOption from './hook/useFocusOption';
 import SwiperCol from './component/SwpierCol';
 import classNames from 'classnames';
 import useSelections from './hook/useSelections';
-import { useEffect } from 'react';
 
 export const StyleTitle = styled.h3(({ theme }) => ({
   fontSize: theme.font.lg,
@@ -20,6 +18,9 @@ export const StyleTitle = styled.h3(({ theme }) => ({
   },
 }));
 
+export const StyleCheckbox = styled(Checkbox)({
+  padding: '18px 15px 18px 19px',
+});
 export const StyleList = styled.ul(({ theme }) => ({
   listStyle: 'none',
   cursor: 'pointer',
@@ -32,6 +33,9 @@ export const StyleList = styled.ul(({ theme }) => ({
     lineHeight: '1.3',
     fontWeight: '500',
     padding: '18px 15px 18px 19px',
+    '&.li--checkbox': {
+      padding: '0',
+    },
     '&:hover': {
       background: `${theme.palette.primary.lighter}`,
     },
@@ -100,7 +104,7 @@ export const TreeMenu = <Option extends BaseOption = DefaultOption>({
 }: TreeMenuProps<Option>) => {
   const theme = useTheme();
   const { focusOptions, setFocusOptions, selections, selectionChange } =
-    useSelections<Option>(value);
+    useSelections<Option>({ value, onChange, options: lv1Options });
 
   const levelOptions: Option[][] = [
     lv1Options,
@@ -116,10 +120,6 @@ export const TreeMenu = <Option extends BaseOption = DefaultOption>({
       !!focusValues.slice(0, level).find((value) => selections.has(value))
     );
   };
-
-  useEffect(() => {
-    onChange([...selections]);
-  }, [selections]);
 
   return (
     <FieldNameProvider
@@ -150,8 +150,9 @@ export const TreeMenu = <Option extends BaseOption = DefaultOption>({
                     onClick={() =>
                       setFocusOptions(level, focusOptions[level - 1])
                     }
+                    className="li--checkbox"
                   >
-                    <Checkbox
+                    <StyleCheckbox
                       onChange={(event) =>
                         selectionChange({
                           event,
@@ -162,27 +163,27 @@ export const TreeMenu = <Option extends BaseOption = DefaultOption>({
                       checked={isChecked(focusValues[level - 1], level)}
                     >
                       全選
-                    </Checkbox>
+                    </StyleCheckbox>
                   </li>
                 )}
                 {levelOptions[level]?.map((option) => (
                   <li
                     key={option[valueName]}
                     onClick={() => setFocusOptions(level, option)}
-                    className={
-                      focusValues[level] === option[valueName] ? 'active' : ''
-                    }
+                    className={classNames({
+                      active: focusValues[level] === option[valueName],
+                      'li--checkbox': isLastLevel(level),
+                    })}
                   >
                     {isLastLevel(level) ? (
-                      <Checkbox
+                      <StyleCheckbox
                         onChange={(event) =>
                           selectionChange({ event, level, option })
                         }
                         checked={isChecked(option[valueName], level)}
                       >
-                        {option[valueName]}
                         {option[labelName]}
-                      </Checkbox>
+                      </StyleCheckbox>
                     ) : (
                       option[labelName]
                     )}

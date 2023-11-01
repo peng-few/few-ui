@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import usefocusOption from './useFocusOption';
 import { BaseOption, DefaultOption } from '../TreeMenu.type';
 import useFieldName from './useFieldName';
@@ -8,15 +8,35 @@ export type selectionChangeProps<Option> = {
   level: number;
   option: Option;
 };
-export const useSelections = <Option extends BaseOption = DefaultOption>(
-  defaultValue?: string[],
-) => {
+export interface useSelectionsType<Option> {
+  value?: string[];
+  onChange: (value: string[], labels: string[]) => void;
+  options: Option[];
+}
+export const useSelections = <Option extends BaseOption = DefaultOption>({
+  value: defaultValue,
+  onChange,
+  options,
+}: useSelectionsType<Option>) => {
   const [focusOptions, setFocusOptions] = usefocusOption<Option>();
-  const { valueName, childrenName } = useFieldName();
-  const [selections, setSelections] = useState<Set<string>>(
+  const { valueName, childrenName, labelName } = useFieldName();
+  const [selections, setSelectionState] = useState<Set<string>>(
     new Set(defaultValue),
   );
-  const [optionCount, setOptionCount] = useState({});
+
+  const optionLabels = useMemo(() => {
+    const labelMap = new Map();
+    const setOptionLabel = (selects: Option) => {
+      labelMap.set(selects[valueName], selects[labelName]);
+      if (selects[childrenName]) {
+        (selects[childrenName] as Option[]).forEach((selects) =>
+          setOptionLabel(selects),
+        );
+      }
+    };
+    options.forEach((selects) => setOptionLabel(selects));
+    return labelMap;
+  }, [options, labelName, valueName, childrenName]);
 
   const getSelectedDescendant = (
     selections: Set<string>,
@@ -82,6 +102,19 @@ export const useSelections = <Option extends BaseOption = DefaultOption>(
     });
   };
 
+  const setSelections = (newState: React.SetStateAction<Set<string>>) => {
+    setSelectionState((prevSelection) => {
+      const newSelections =
+        typeof newState === 'function' ? newState(prevSelection) : newState;
+      const selectionArr = [...newSelections];
+      const selectedOption = selectionArr.map((select) =>
+        optionLabels.get(select),
+      );
+      onChange(selectionArr, selectedOption);
+      return newSelections;
+    });
+  };
+
   const selectionChange = ({
     event,
     level,
@@ -103,7 +136,6 @@ export const useSelections = <Option extends BaseOption = DefaultOption>(
     setFocusOptions,
     selections,
     selectionChange,
-    optionCount,
   };
 };
 

@@ -6,11 +6,18 @@ const SimpleMenuDemo = () => {
   const [visible, setVisible] = useState(true);
   const [option] = useState(Industries);
   const [value, setValue] = useState<string[]>();
+  const [selectedLabels, setSelectedLabels] = useState<string[]>();
+  const valueChange = (val: string[], labels: string[]) => {
+    setValue(val);
+    setSelectedLabels(labels);
+  };
+
   return (
     <>
-      <h1>一般的三層選單</h1>
-      <p>以選擇{value?.join('、')}</p>
-      <Button size="lg" onClick={() => setVisible(true)}>
+      <h1>三層選單(多選)</h1>
+      <p>已選擇: {selectedLabels?.join('、')}</p>
+      <p>選擇值: {value?.join('、')}</p>
+      <Button variant="filled" size="lg" onClick={() => setVisible(true)}>
         打開選單
       </Button>
       <TreeMenu
@@ -19,7 +26,7 @@ const SimpleMenuDemo = () => {
         options={option}
         title="行業類別"
         value={value}
-        onChange={(val) => setValue(val)}
+        onChange={valueChange}
       />
     </>
   );
