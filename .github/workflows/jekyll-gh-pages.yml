@@ -64,6 +64,10 @@ jobs:
         with:
           # Upload dist repository
           path: './dist/packages/tree-menu/docs'
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './dist/packages/tree-menu/docs/assets'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
